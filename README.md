@@ -15,13 +15,12 @@ var stylus = require('stylus'),
       /__child
         color: blue`;
 
-stylus.render(str, {
-  Evaluator: require('stylus-bem-evaluator')
-}, function (err, css) {
-  console.log(err || css);
-  // output: 
-  // .parent .block .block__child {
-  //   color: #00f;
-  // }
-});
+stylus(str)
+  .use(require('stylus-bem-evaluator')
+  .render(function (err, css) {
+    console.log(err || css);
+    // .parent .block .block__child {
+    //   color: #00f;
+    // }
+  });
 ```

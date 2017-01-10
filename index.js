@@ -1,26 +1,23 @@
 const Evaluator = require('stylus/lib/visitor/evaluator'),
-  BEMTree = require('./lib/bem-tree');
+
+    BEMTree = require('./lib/bem-tree');
 
 class BEMEvaluator extends Evaluator {
-  constructor(ast, options) {
-    super(...arguments);
-    this.__super = Evaluator.prototype;
-  }
 
-  evaluate() {
-    // pass on imports and all that other stuff to default evaluate function
-    let ast = this.__super.evaluate.call(this);
+    evaluate() {
+        // pass on imports and all that other stuff to default evaluate function
+        let ast = Evaluator.prototype.evaluate.call(this);
 
-    // replace bem references
-    const astBEM = new BEMTree(ast);
-    this.root = astBEM.toAST();
+        // replace bem references
+        const astBEM = new BEMTree(ast);
 
-    // update and return ast
-    return this.__super.evaluate.call(this);
-  }
+        // update ast
+        this.root = astBEM.toAST();
+        return this.visit(this.root);
+    }
 }
 
 module.exports = function (ast, options) {
-
-  return new BEMEvaluator(ast, options);
+    if (this.options && this.options.Evaluator) this.options.Evaluator = BEMEvaluator;
+    return new BEMEvaluator(ast, options);
 };
