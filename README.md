@@ -16,7 +16,7 @@ var stylus = require('stylus'),
         color: blue`;
 
 stylus(str)
-  .use(require('stylus-bem-evaluator')
+  .use(require('stylus-bem-evaluator'))
   .render(function (err, css) {
     console.log(err || css);
     // .parent .block .block__child {
