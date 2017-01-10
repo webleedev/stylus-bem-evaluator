@@ -1,6 +1,6 @@
 {
   "name": "stylus-bem-evaluator",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "BEM-scheme Evaluator for stylus",
   "main": "index.js",
   "scripts": {
